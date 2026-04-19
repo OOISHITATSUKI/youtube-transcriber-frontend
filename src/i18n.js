@@ -115,9 +115,10 @@ const translations = {
     audio_paid: 'Paid: Up to 20 min',
     audio_dropText: 'Drag & drop your audio file here',
     audio_selectFile: 'Select File',
-    audio_formats: 'MP3, WAV, M4A, MP4, OGG, FLAC, WebM (max 100MB)',
+    audio_formats: 'MP3, WAV, M4A, MP4, OGG, FLAC, WebM (max 25MB)',
     audio_startBtn: 'Start Transcription',
     audio_limitReached: 'Daily free limit reached. Upgrade for unlimited access.',
+    audio_fileTooLarge: 'File must be under 25MB. Convert to MP3 to reduce size.',
 
     // Footer
     footerMain: 'YouTube Transcriber AI — Powered by OpenAI Whisper & Claude',
@@ -360,9 +361,10 @@ const translations = {
     audio_paid: '有料: 20分まで',
     audio_dropText: 'ここにファイルをドラッグ＆ドロップ',
     audio_selectFile: 'ファイルを選択',
-    audio_formats: 'MP3, WAV, M4A, MP4, OGG, FLAC, WebM（最大100MB）',
+    audio_formats: 'MP3, WAV, M4A, MP4, OGG, FLAC, WebM（最大25MB）',
     audio_startBtn: '文字起こし開始',
     audio_limitReached: '本日の無料枠（1回/日）を使い切りました。',
+    audio_fileTooLarge: 'ファイルサイズは25MB以下にしてください。MP3に変換すると軽くなります。',
     footerMain: 'YouTube文字起こしAI — Powered by OpenAI Whisper & Claude',
     footerTerms: '利用規約',
     footerPrivacy: 'プライバシーポリシー',

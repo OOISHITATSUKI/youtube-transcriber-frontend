@@ -37,6 +37,10 @@ export default function AudioPage() {
   }, []);
 
   const handleFileSelect = (selectedFile) => {
+    if (selectedFile.size > 25 * 1024 * 1024) {
+      setError(t('audio_fileTooLarge'));
+      return;
+    }
     setFile(selectedFile);
     setError('');
     setTranscript(null);
