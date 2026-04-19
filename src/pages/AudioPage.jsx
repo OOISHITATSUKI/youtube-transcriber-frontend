@@ -219,8 +219,8 @@ export default function AudioPage() {
       {showPricing && (
         <PricingModal
           duration={duration}
-          onPurchase={handlePurchase}
           onClose={() => setShowPricing(false)}
+          userToken={sessionToken}
         />
       )}
     </>

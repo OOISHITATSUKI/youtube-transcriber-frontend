@@ -270,8 +270,8 @@ export default function HomePage() {
       {showPricing && (
         <PricingModal
           duration={videoDuration}
-          onPurchase={handlePurchase}
           onClose={() => setShowPricing(false)}
+          userToken={sessionToken}
         />
       )}
     </>
