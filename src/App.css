@@ -1969,3 +1969,133 @@
     flex-wrap: wrap;
   }
 }
+
+/* ===========================
+   Audio Page
+   =========================== */
+
+.audio-limits {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.audio-limit-free,
+.audio-limit-paid {
+  font-size: 0.8rem;
+  padding: 4px 14px;
+  border-radius: 100px;
+}
+
+.audio-limit-free {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+}
+
+.audio-limit-paid {
+  background: rgba(245, 158, 11, 0.06);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 48px 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: all 0.2s;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.upload-area.drag-active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.upload-area.has-file {
+  border-style: solid;
+  border-color: var(--primary);
+  padding: 20px 24px;
+}
+
+.upload-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 12px 0 16px;
+}
+
+.upload-select-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.upload-select-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.upload-formats-text {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.file-selected {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.file-info {
+  flex: 1;
+  text-align: left;
+}
+
+.file-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-size {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.file-remove {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+}
+
+.file-remove:hover {
+  color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.audio-start-btn {
+  display: block;
+  width: 100%;
+  margin-bottom: 24px;
+}

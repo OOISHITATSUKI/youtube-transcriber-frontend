@@ -8,6 +8,7 @@ import SrtToTxt from './pages/SrtToTxt';
 import LrcToSrt from './pages/LrcToSrt';
 import VideoSplitter from './pages/VideoSplitter';
 import ImageToWebp from './pages/ImageToWebp';
+import AudioPage from './pages/AudioPage';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/lrc-to-srt" element={<LrcToSrt />} />
           <Route path="/video-splitter" element={<VideoSplitter />} />
           <Route path="/image-to-webp" element={<ImageToWebp />} />
+          <Route path="/audio" element={<AudioPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

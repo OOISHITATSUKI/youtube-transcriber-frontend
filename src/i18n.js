@@ -107,6 +107,18 @@ const translations = {
     upload_selectFile: 'Upload audio/video file',
     upload_formats: 'MP3, MP4, M4A, WAV, WebM, OGG, MOV (max 25MB)',
 
+    // Audio Page
+    audio_badge: 'AI Transcription',
+    audio_title: 'Audio File Transcription',
+    audio_desc: 'Upload an audio file and AI will transcribe it instantly with speaker separation.',
+    audio_free: 'Free: 3 min, 1x/day',
+    audio_paid: 'Paid: Up to 20 min',
+    audio_dropText: 'Drag & drop your audio file here',
+    audio_selectFile: 'Select File',
+    audio_formats: 'MP3, WAV, M4A, MP4, OGG, FLAC, WebM (max 100MB)',
+    audio_startBtn: 'Start Transcription',
+    audio_limitReached: 'Daily free limit reached. Upgrade for unlimited access.',
+
     // Footer
     footerMain: 'YouTube Transcriber AI — Powered by OpenAI Whisper & Claude',
     footerTerms: 'Terms of Service',
@@ -121,6 +133,7 @@ const translations = {
     footerLrcToSrt: 'LRC to SRT',
     footerTranscriber: 'YouTube Transcriber',
     footerVideoSplitter: 'Video Splitter',
+    footerAudioTranscriber: 'Audio Transcriber',
     footerImageTools: 'Image Tools',
     footerImageToWebp: 'JPG/PNG to WebP',
 
@@ -340,6 +353,16 @@ const translations = {
     upload_fallbackDesc: 'ブラウザ拡張機能で動画をダウンロード後、ここにアップロードしてください。',
     upload_selectFile: '音声・動画ファイルをアップロード',
     upload_formats: 'MP3, MP4, M4A, WAV, WebM, OGG, MOV（最大25MB）',
+    audio_badge: 'AI文字起こし',
+    audio_title: '音声ファイル文字起こし',
+    audio_desc: '音声ファイルをアップロードするだけ。AIが話者分けして文字起こし。',
+    audio_free: '無料: 3分まで・1日1回',
+    audio_paid: '有料: 20分まで',
+    audio_dropText: 'ここにファイルをドラッグ＆ドロップ',
+    audio_selectFile: 'ファイルを選択',
+    audio_formats: 'MP3, WAV, M4A, MP4, OGG, FLAC, WebM（最大100MB）',
+    audio_startBtn: '文字起こし開始',
+    audio_limitReached: '本日の無料枠（1回/日）を使い切りました。',
     footerMain: 'YouTube文字起こしAI — Powered by OpenAI Whisper & Claude',
     footerTerms: '利用規約',
     footerPrivacy: 'プライバシーポリシー',
@@ -353,6 +376,7 @@ const translations = {
     footerLrcToSrt: 'LRC → SRT変換',
     footerTranscriber: 'YouTube文字起こし',
     footerVideoSplitter: '動画分割',
+    footerAudioTranscriber: '音声文字起こし',
     footerImageTools: '画像ツール',
     footerImageToWebp: 'JPG/PNGをWebPに変換',
 

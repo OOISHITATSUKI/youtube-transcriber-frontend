@@ -20,6 +20,7 @@ export default function Footer() {
           <h4>{t('footerVideoEditing')}</h4>
           <ul>
             <li><Link to="/">{t('footerTranscriber')}</Link></li>
+            <li><Link to="/audio">{t('footerAudioTranscriber')}</Link></li>
             <li><Link to="/video-splitter">{t('footerVideoSplitter')}</Link></li>
           </ul>
         </div>
