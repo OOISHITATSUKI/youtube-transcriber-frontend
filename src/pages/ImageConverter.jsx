@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { t, useLang } from '../i18n';
 
 const DAILY_FREE_LIMIT = 10;
-const STORAGE_KEY = 'webp_daily';
+const STORAGE_KEY = 'imgconv_daily';
 
 function getDailyCount() {
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -18,23 +18,33 @@ function addDailyCount(n) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ date: today, count: current + n }));
 }
 
-export default function ImageToWebp() {
+const OUTPUT_FORMATS = [
+  { id: 'webp', label: 'WebP', mime: 'image/webp', ext: '.webp' },
+  { id: 'jpeg', label: 'JPG', mime: 'image/jpeg', ext: '.jpg' },
+  { id: 'png', label: 'PNG', mime: 'image/png', ext: '.png' },
+];
+
+export default function ImageConverter() {
   useLang();
   const [files, setFiles] = useState([]);
   const [converted, setConverted] = useState([]);
   const [quality, setQuality] = useState(85);
+  const [outputFormat, setOutputFormat] = useState('webp');
   const [processing, setProcessing] = useState(false);
   const [dailyCount, setDailyCount] = useState(getDailyCount());
+  const [error, setError] = useState('');
   const canvasRef = useRef(null);
 
   const MAX_FILES = 10;
   const remaining = Math.max(0, DAILY_FREE_LIMIT - dailyCount);
   const isLimitReached = remaining <= 0;
+  const selectedFormat = OUTPUT_FORMATS.find(f => f.id === outputFormat);
 
   const handleFiles = (e) => {
     const selected = Array.from(e.target.files || []).slice(0, MAX_FILES);
     setFiles(selected);
     setConverted([]);
+    setError('');
   };
 
   const handleDrop = (e) => {
@@ -42,6 +52,7 @@ export default function ImageToWebp() {
     const dropped = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).slice(0, MAX_FILES);
     setFiles(dropped);
     setConverted([]);
+    setError('');
   };
 
   const convertOne = (file) => {
@@ -56,23 +67,33 @@ export default function ImageToWebp() {
           canvas.width = img.naturalWidth;
           canvas.height = img.naturalHeight;
           const ctx = canvas.getContext('2d');
+
+          // PNG needs transparent background support
+          if (outputFormat === 'png') {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+          } else {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+
           ctx.drawImage(img, 0, 0);
+
+          const qualityValue = outputFormat === 'png' ? undefined : quality / 100;
+
           canvas.toBlob((blob) => {
             URL.revokeObjectURL(url);
-            if (!blob) { reject(new Error('WebP conversion failed')); return; }
+            if (!blob) { reject(new Error('Conversion failed')); return; }
             const baseName = file.name.replace(/\.[^.]+$/, '');
-            const savedKB = Math.round((file.size - blob.size) / 1024);
             const pct = Math.round((1 - blob.size / file.size) * 100);
             resolve({
-              name: `${baseName}.webp`,
+              name: `${baseName}${selectedFormat.ext}`,
               blob,
               originalSize: file.size,
               newSize: blob.size,
-              savedKB,
               pct,
               url: URL.createObjectURL(blob),
             });
-          }, 'image/webp', quality / 100);
+          }, selectedFormat.mime, qualityValue);
         } catch (e) {
           reject(e);
         }
@@ -84,8 +105,6 @@ export default function ImageToWebp() {
       img.src = url;
     });
   };
-
-  const [error, setError] = useState('');
 
   const handleConvert = async () => {
     if (files.length === 0 || isLimitReached) return;
@@ -99,7 +118,6 @@ export default function ImageToWebp() {
         const result = await convertOne(file);
         results.push(result);
       } catch (e) {
-        console.error('Convert error:', e);
         setError(`${file.name}: ${e.message}`);
       }
     }
@@ -118,9 +136,7 @@ export default function ImageToWebp() {
     a.click();
   };
 
-  const handleDownloadAll = () => {
-    converted.forEach((item) => handleDownload(item));
-  };
+  const handleDownloadAll = () => converted.forEach(handleDownload);
 
   const formatSize = (bytes) => {
     if (bytes < 1024) return `${bytes} B`;
@@ -133,13 +149,29 @@ export default function ImageToWebp() {
   return (
     <div className="tool-page">
       <div className="tool-header">
-        <h1>{t('webp_title')}</h1>
-        <p>{t('webp_desc')}</p>
+        <h1>{t('imgconv_title')}</h1>
+        <p>{t('imgconv_desc')}</p>
         {!isLimitReached && (
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 8 }}>
             {remaining}/{DAILY_FREE_LIMIT} free today
           </p>
         )}
+      </div>
+
+      {/* Output Format Selector */}
+      <div className="format-selector">
+        <label className="format-label">{t('imgconv_outputFormat')}</label>
+        <div className="format-options">
+          {OUTPUT_FORMATS.map(fmt => (
+            <button
+              key={fmt.id}
+              className={`format-option ${outputFormat === fmt.id ? 'active' : ''}`}
+              onClick={() => { setOutputFormat(fmt.id); setConverted([]); }}
+            >
+              {fmt.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {isLimitReached ? (
@@ -152,55 +184,48 @@ export default function ImageToWebp() {
           </div>
           <h3>{t('webp_limitReached')}</h3>
           <p>{t('webp_limitDesc')}</p>
-          <a
-            href={import.meta.env.VITE_STRIPE_PAYMENT_LINK || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="purchase-btn"
-            style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center', marginTop: 16 }}
-          >
-            {t('webp_unlockBtn')}
-          </a>
         </div>
       ) : (
-      <div
-        className="file-upload-area"
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
-      >
-        <label className="file-upload-label file-upload-large">
-          <input type="file" accept="image/jpeg,image/png,image/bmp,image/tiff" multiple onChange={handleFiles} hidden />
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <polyline points="21 15 16 10 5 21" />
-          </svg>
-          <span>{files.length > 0 ? t('webp_filesSelected', { count: files.length }) : t('webp_upload')}</span>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('webp_formats')}</span>
-        </label>
-      </div>
+        <div
+          className="file-upload-area"
+          onDrop={handleDrop}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <label className="file-upload-label file-upload-large">
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/bmp,image/tiff,image/gif" multiple onChange={handleFiles} hidden />
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+            <span>{files.length > 0 ? t('imgconv_filesSelected', { count: files.length }) : t('imgconv_upload')}</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('imgconv_formats')}</span>
+          </label>
+        </div>
       )}
 
       {error && <div className="error-banner">{error}</div>}
 
       {files.length > 0 && !converted.length && !isLimitReached && (
         <div className="webp-controls">
-          <div className="quality-slider">
-            <label>{t('webp_quality')}: <strong>{quality}%</strong></label>
-            <input
-              type="range"
-              min="10"
-              max="100"
-              value={quality}
-              onChange={(e) => setQuality(Number(e.target.value))}
-            />
-            <div className="quality-hints">
-              <span>{t('webp_smaller')}</span>
-              <span>{t('webp_sharper')}</span>
+          {outputFormat !== 'png' && (
+            <div className="quality-slider">
+              <label>{t('imgconv_quality')}: <strong>{quality}%</strong></label>
+              <input
+                type="range"
+                min="10"
+                max="100"
+                value={quality}
+                onChange={(e) => setQuality(Number(e.target.value))}
+              />
+              <div className="quality-hints">
+                <span>{t('webp_smaller')}</span>
+                <span>{t('webp_sharper')}</span>
+              </div>
             </div>
-          </div>
+          )}
           <button className="convert-btn" onClick={handleConvert} disabled={processing} style={{ width: '100%', marginTop: 16 }}>
-            {processing ? t('webp_converting') : t('webp_convertBtn', { count: files.length })}
+            {processing ? t('imgconv_converting') : t('imgconv_convertBtn', { count: files.length, format: selectedFormat.label })}
           </button>
         </div>
       )}
@@ -208,8 +233,8 @@ export default function ImageToWebp() {
       {converted.length > 0 && (
         <div className="webp-results">
           <div className="webp-summary">
-            <span>{t('webp_converted', { count: converted.length })}</span>
-            <span className="webp-saved">{t('webp_totalSaved', { size: formatSize(totalSaved) })}</span>
+            <span>{t('imgconv_converted', { count: converted.length, format: selectedFormat.label })}</span>
+            {totalSaved > 0 && <span className="webp-saved">{t('webp_totalSaved', { size: formatSize(totalSaved) })}</span>}
           </div>
 
           <div className="webp-list">
@@ -229,7 +254,7 @@ export default function ImageToWebp() {
                 </div>
                 <button className="copy-btn" onClick={() => handleDownload(item)}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
-                  .webp
+                  {selectedFormat.ext}
                 </button>
               </div>
             ))}
@@ -246,7 +271,7 @@ export default function ImageToWebp() {
             onClick={() => { setFiles([]); setConverted([]); }}
             style={{ marginTop: 12 }}
           >
-            {t('webp_convertMore')}
+            {t('imgconv_convertMore')}
           </button>
         </div>
       )}
@@ -254,15 +279,19 @@ export default function ImageToWebp() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       <div className="tool-info" style={{ marginTop: 40 }}>
-        <h2>{t('webp_whyTitle')}</h2>
+        <h2>{t('imgconv_aboutTitle')}</h2>
         <div className="info-grid">
           <div className="info-card">
-            <h3>{t('webp_smallerTitle')}</h3>
-            <p>{t('webp_smallerDesc')}</p>
+            <h3>WebP</h3>
+            <p>{t('imgconv_aboutWebp')}</p>
           </div>
           <div className="info-card">
-            <h3>{t('webp_privacyTitle')}</h3>
-            <p>{t('webp_privacyDesc')}</p>
+            <h3>JPG</h3>
+            <p>{t('imgconv_aboutJpg')}</p>
+          </div>
+          <div className="info-card">
+            <h3>PNG</h3>
+            <p>{t('imgconv_aboutPng')}</p>
           </div>
         </div>
       </div>

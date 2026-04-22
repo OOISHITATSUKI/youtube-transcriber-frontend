@@ -4,8 +4,8 @@ import { t, useLang } from '../i18n';
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 const PLANS = [
-  { id: 'pack5', credits: 5, price: 2.50, perCredit: 0.50, popular: false },
-  { id: 'pack10', credits: 10, price: 4.00, perCredit: 0.40, popular: true, discount: '20% OFF' },
+  { id: 'pack5', credits: 5, price: 1.00, perCredit: 0.20, popular: false },
+  { id: 'pack10', credits: 10, price: 1.50, perCredit: 0.15, popular: true, discount: '25% OFF' },
 ];
 
 export default function PricingModal({ duration, onClose, userToken }) {
@@ -66,7 +66,7 @@ export default function PricingModal({ duration, onClose, userToken }) {
         </div>
 
         <div className="pricing-features">
-          <p>{t('pricing_feature1')}</p>
+          <p>{t('pricing_feature1_beta')}</p>
           <p>{t('pricing_feature2')}</p>
           <p>{t('pricing_feature3')}</p>
         </div>

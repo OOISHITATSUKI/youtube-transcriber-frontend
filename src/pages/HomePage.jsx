@@ -7,8 +7,10 @@ import SummaryView from '../components/SummaryView';
 import PricingModal from '../components/PricingModal';
 import PsychologyBanner from '../components/PsychologyBanner';
 import LoadingAnimation from '../components/LoadingAnimation';
+import SeoAdvice from '../components/SeoAdvice';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
+const IS_DEMO = import.meta.env.VITE_DEMO_MODE === 'true';
 
 const DEMO_TRANSCRIPT = `[00:00] Hey everyone, today we're going to talk about the latest developments in AI.
 [00:08] Let's start by looking at the evolution of large language models.
@@ -103,7 +105,7 @@ export default function HomePage() {
     setSrtData(null);
     setIsDemo(false);
 
-    if (!API_URL) {
+    if (IS_DEMO) {
       setTimeout(() => {
         setTranscript(DEMO_TRANSCRIPT);
         setVideoDuration(630);
@@ -185,7 +187,7 @@ export default function HomePage() {
     setLoading(true);
     setLoadingType('summarize');
 
-    if (isDemo || !API_URL) {
+    if (isDemo) {
       setTimeout(() => {
         setSummary(DEMO_SUMMARY);
         setLoading(false);
@@ -265,6 +267,10 @@ export default function HomePage() {
 
       {summary && !loading && (
         <SummaryView summary={summary} />
+      )}
+
+      {transcript && !loading && (
+        <SeoAdvice transcript={transcript} />
       )}
 
       {showPricing && (

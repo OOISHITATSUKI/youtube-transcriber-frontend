@@ -4,6 +4,7 @@ import TranscriptView from '../components/TranscriptView';
 import SummaryView from '../components/SummaryView';
 import PricingModal from '../components/PricingModal';
 import LoadingAnimation from '../components/LoadingAnimation';
+import SeoAdvice from '../components/SeoAdvice';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
@@ -37,7 +38,7 @@ export default function AudioPage() {
   }, []);
 
   const handleFileSelect = (selectedFile) => {
-    if (selectedFile.size > 25 * 1024 * 1024) {
+    if (selectedFile.size > 150 * 1024 * 1024) {
       setError(t('audio_fileTooLarge'));
       return;
     }
@@ -215,6 +216,10 @@ export default function AudioPage() {
       )}
 
       {summary && !loading && <SummaryView summary={summary} />}
+
+      {transcript && !loading && (
+        <SeoAdvice transcript={transcript} />
+      )}
 
       {showPricing && (
         <PricingModal

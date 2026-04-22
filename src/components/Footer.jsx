@@ -25,6 +25,13 @@ export default function Footer() {
           </ul>
         </div>
         <div className="footer-col">
+          <h4>{t('footerAudioTools')}</h4>
+          <ul>
+            <li><Link to="/wav-to-mp3">{t('footerWavToMp3')}</Link></li>
+            <li><Link to="/mp3-to-wav">{t('footerMp3ToWav')}</Link></li>
+          </ul>
+        </div>
+        <div className="footer-col">
           <h4>{t('footerImageTools')}</h4>
           <ul>
             <li><Link to="/image-to-webp">{t('footerImageToWebp')}</Link></li>
@@ -35,10 +42,12 @@ export default function Footer() {
           <ul>
             <li><Link to="/terms">{t('footerTerms')}</Link></li>
             <li><Link to="/privacy">{t('footerPrivacy')}</Link></li>
+            <li><Link to="/commerce">{t('footerCommerce')}</Link></li>
           </ul>
         </div>
       </div>
       <div className="footer-bottom">
+        <p className="footer-beta">{t('beta_notice')}</p>
         <p>{t('footerMain')}</p>
       </div>
     </footer>
