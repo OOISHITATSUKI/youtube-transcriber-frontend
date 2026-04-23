@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { t, useLang } from '../i18n';
-import lamejs from 'lamejs';
+import 'lamejs/lame.min.js';
+const lamejs = window.lamejs;
 
 const MAX_FILES = 5;
 
