@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { t, useLang } from '../i18n';
-
-/* global lamejs */
+import lamejs from '../lib/lamejs-wrapper.js';
 
 const MAX_FILES = 5;
 
