@@ -38,7 +38,7 @@ export default function AudioPage() {
   }, []);
 
   const handleFileSelect = (selectedFile) => {
-    if (selectedFile.size > 150 * 1024 * 1024) {
+    if (selectedFile.size > 25 * 1024 * 1024) {
       setError(t('audio_fileTooLarge'));
       return;
     }
@@ -185,7 +185,11 @@ export default function AudioPage() {
                 hidden
               />
             </label>
-            <p className="upload-formats-text">{t('audio_formats')}</p>
+            <p className="upload-formats-text">
+              MP3, WAV, M4A, MP4, OGG, FLAC, WebM（最大25MB）
+              <br />
+              <span className="upload-tip">💡 WAVなど大きいファイルは事前にMP3に変換するとアップロードが速くなります</span>
+            </p>
           </>
         )}
       </div>

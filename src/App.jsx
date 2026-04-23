@@ -9,7 +9,6 @@ import LrcToSrt from './pages/LrcToSrt';
 import VideoSplitter from './pages/VideoSplitter';
 import ImageConverter from './pages/ImageConverter';
 import AudioPage from './pages/AudioPage';
-import AudioConverter from './pages/AudioConverter';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import CommercePage from './pages/CommercePage';
@@ -30,8 +29,6 @@ function App() {
           <Route path="/video-splitter" element={<VideoSplitter />} />
           <Route path="/image-to-webp" element={<ImageConverter />} />
           <Route path="/audio" element={<AudioPage />} />
-          <Route path="/wav-to-mp3" element={<AudioConverter mode="wav-to-mp3" />} />
-          <Route path="/mp3-to-wav" element={<AudioConverter mode="mp3-to-wav" />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/commerce" element={<CommercePage />} />

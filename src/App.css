@@ -2443,6 +2443,13 @@
   color: var(--text-muted);
 }
 
+.upload-tip {
+  color: var(--warning, #f59e0b);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: inline-block;
+}
+
 .file-selected {
   display: flex;
   align-items: center;
