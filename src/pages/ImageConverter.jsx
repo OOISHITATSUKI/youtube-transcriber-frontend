@@ -136,7 +136,11 @@ export default function ImageConverter() {
     a.click();
   };
 
-  const handleDownloadAll = () => converted.forEach(handleDownload);
+  const handleDownloadAll = () => {
+    converted.forEach((item, i) => {
+      setTimeout(() => handleDownload(item), i * 150);
+    });
+  };
 
   const formatSize = (bytes) => {
     if (bytes < 1024) return `${bytes} B`;
