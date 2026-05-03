@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { t, useLang } from '../i18n';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
-export default function SeoAdvice({ transcript }) {
+export default function SeoAdvice({ transcript, autoGenerate = false }) {
   useLang();
   const [advice, setAdvice] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [copiedField, setCopiedField] = useState('');
+
+  useEffect(() => {
+    if (autoGenerate && transcript && !advice && !loading) {
+      handleGenerate();
+    }
+  }, [autoGenerate, transcript]);
 
   const handleGenerate = async () => {
     setLoading(true);

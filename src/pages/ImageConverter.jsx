@@ -188,6 +188,15 @@ export default function ImageConverter() {
           </div>
           <h3>{t('webp_limitReached')}</h3>
           <p>{t('webp_limitDesc')}</p>
+          <a
+            href={import.meta.env.VITE_STRIPE_PAYMENT_LINK || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="purchase-btn"
+            style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center', marginTop: 16 }}
+          >
+            {t('webp_unlockBtn')}
+          </a>
         </div>
       ) : (
         <div

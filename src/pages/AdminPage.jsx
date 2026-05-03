@@ -9,6 +9,12 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const [testResult, setTestResult] = useState(null);
 
+  // Credit management
+  const [creditEmail, setCreditEmail] = useState('');
+  const [creditAmount, setCreditAmount] = useState(10);
+  const [creditResult, setCreditResult] = useState(null);
+  const [creditLoading, setCreditLoading] = useState(false);
+
   const headers = { 'x-admin-password': password, 'Content-Type': 'application/json' };
 
   const handleLogin = async () => {
@@ -48,6 +54,43 @@ export default function AdminPage() {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleAddCredits = async () => {
+    if (!creditEmail.trim()) return;
+    setCreditLoading(true);
+    setCreditResult(null);
+    try {
+      // First, look up user token by email
+      const lookupRes = await fetch(`${API_URL}/api/admin/lookup-user?email=${encodeURIComponent(creditEmail.trim())}`, { headers });
+      const lookupData = await lookupRes.json();
+
+      if (!lookupRes.ok || !lookupData.userToken) {
+        setCreditResult({ error: `ユーザーが見つかりません: ${creditEmail}` });
+        setCreditLoading(false);
+        return;
+      }
+
+      // Add credits
+      const res = await fetch(`${API_URL}/api/admin/add-credits`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ userToken: lookupData.userToken, amount: creditAmount }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setCreditResult({
+        success: true,
+        email: creditEmail,
+        name: lookupData.name,
+        added: creditAmount,
+        remaining: data.creditsRemaining,
+      });
+      refreshStats();
+    } catch (err) {
+      setCreditResult({ error: err.message });
+    }
+    setCreditLoading(false);
   };
 
   const formatDate = (d) => {
@@ -99,6 +142,52 @@ export default function AdminPage() {
         </div>
       )}
 
+      {/* Credit Management */}
+      <div className="admin-section">
+        <h2>クレジット管理</h2>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>メールアドレス</label>
+            <input
+              type="email"
+              value={creditEmail}
+              onChange={(e) => setCreditEmail(e.target.value)}
+              placeholder="user@example.com"
+              style={{ width: '100%', padding: '8px 10px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg-input)', color: 'var(--text-primary)', fontSize: '0.85rem' }}
+            />
+          </div>
+          <div style={{ width: 100 }}>
+            <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>付与数</label>
+            <input
+              type="number"
+              value={creditAmount}
+              onChange={(e) => setCreditAmount(Number(e.target.value))}
+              min={1}
+              style={{ width: '100%', padding: '8px 10px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg-input)', color: 'var(--text-primary)', fontSize: '0.85rem' }}
+            />
+          </div>
+          <button
+            className="admin-btn"
+            onClick={handleAddCredits}
+            disabled={creditLoading || !creditEmail.trim()}
+            style={{ whiteSpace: 'nowrap' }}
+          >
+            {creditLoading ? '処理中...' : 'クレジット付与'}
+          </button>
+        </div>
+        {creditResult && (
+          <div style={{ marginTop: 10, padding: '10px 14px', borderRadius: 8, background: creditResult.error ? '#2a1515' : '#1a2a1a', border: `1px solid ${creditResult.error ? '#5c2020' : '#205c20'}`, fontSize: '0.8rem' }}>
+            {creditResult.error ? (
+              <span style={{ color: '#f87171' }}>{creditResult.error}</span>
+            ) : (
+              <span style={{ color: '#4ade80' }}>
+                {creditResult.email} ({creditResult.name}) に {creditResult.added} クレジットを付与しました（残高: {creditResult.remaining}）
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* Test Credits */}
       <div className="admin-section">
         <h2>Test Mode</h2>
@@ -107,14 +196,6 @@ export default function AdminPage() {
           <div className="admin-test-result">
             <p>Token: <code>{testResult.adminToken}</code></p>
             <p>Credits: {testResult.creditsRemaining}</p>
-            <p className="admin-hint">Use this token in localStorage as <code>yt_user_token</code> to test paid features.</p>
-            <button className="admin-btn-small" onClick={() => {
-              localStorage.setItem('yt_user_token', testResult.adminToken);
-              localStorage.setItem('yt_session', JSON.stringify({ token: testResult.adminToken, expiresAt: new Date(Date.now() + 365 * 86400000).toISOString() }));
-              alert('Test session activated. Reload the page to use paid features.');
-            }}>
-              Activate Test Session
-            </button>
           </div>
         )}
       </div>
@@ -180,8 +261,6 @@ export default function AdminPage() {
           </div>
         </div>
       )}
-
-      {stats?.message && <p className="admin-hint">{stats.message}</p>}
     </div>
   );
 }

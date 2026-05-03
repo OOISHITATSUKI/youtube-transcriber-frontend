@@ -21,13 +21,16 @@ export default function Footer() {
           <ul>
             <li><Link to="/">{t('footerTranscriber')}</Link></li>
             <li><Link to="/audio">{t('footerAudioTranscriber')}</Link></li>
+            <li><Link to="/vseo">{t('footerVseo')}</Link></li>
             <li><Link to="/video-splitter">{t('footerVideoSplitter')}</Link></li>
+            <li><Link to="/thumbnail">{t('footerThumbnail')}</Link></li>
           </ul>
         </div>
         <div className="footer-col">
           <h4>{t('footerImageTools')}</h4>
           <ul>
             <li><Link to="/image-to-webp">{t('footerImageToWebp')}</Link></li>
+            <li><Link to="/pdf-converter">{t('footerPdfConverter')}</Link></li>
           </ul>
         </div>
         <div className="footer-col">
