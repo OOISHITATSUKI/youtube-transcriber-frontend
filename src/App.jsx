@@ -19,6 +19,7 @@ import AccountPage from './pages/AccountPage';
 import PricingPage from './pages/PricingPage';
 import AdminPage from './pages/AdminPage';
 import ThumbnailPage from './pages/ThumbnailPage';
+import BgRemoverPage from './pages/BgRemoverPage';
 import './App.css';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/commerce" element={<CommercePage />} />
           <Route path="/thumbnail" element={<ThumbnailPage />} />
+          <Route path="/bg-remover" element={<BgRemoverPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </Layout>

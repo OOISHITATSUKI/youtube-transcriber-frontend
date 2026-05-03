@@ -291,6 +291,31 @@ const translations = {
     imgconv_aboutJpg: 'Universal photo format. Best for photographs with many colors. Lossy compression.',
     imgconv_aboutPng: 'Lossless format with transparency support. Best for graphics, logos, and screenshots.',
 
+    // Background Remover
+    bgrem_title: 'Background Remover',
+    bgrem_desc: 'Remove image backgrounds instantly with AI — 100% free, processed in your browser.',
+    bgrem_privacy: 'Your images never leave your device. All processing is done locally.',
+    bgrem_dropText: 'Drag & drop your image here',
+    bgrem_selectFile: 'Select Image',
+    bgrem_maxSize: 'max 20MB',
+    bgrem_fileTooLarge: 'File must be under 20MB.',
+    bgrem_removeBtn: 'Remove Background',
+    bgrem_processing: 'Removing background...',
+    bgrem_loadingModel: 'Loading AI model (first time may take a moment)...',
+    bgrem_error: 'Background removal failed. Please try another image.',
+    bgrem_original: 'Original',
+    bgrem_result: 'Background Removed',
+    bgrem_downloadPng: 'Download PNG (transparent)',
+    bgrem_tryAnother: 'Try Another Image',
+    bgrem_aboutTitle: 'About This Tool',
+    bgrem_about1Title: '100% Free & Private',
+    bgrem_about1Desc: 'No upload needed — AI runs entirely in your browser. Your images stay on your device.',
+    bgrem_about2Title: 'AI-Powered',
+    bgrem_about2Desc: 'Uses advanced machine learning to accurately detect and remove backgrounds.',
+    bgrem_about3Title: 'Transparent PNG',
+    bgrem_about3Desc: 'Downloads as PNG with transparent background, ready for design tools or presentations.',
+    footerBgRemover: 'Background Remover',
+
     // Audio Converter
     audioconv_wavToMp3Title: 'WAV to MP3 Converter',
     audioconv_wavToMp3Desc: 'Convert WAV files to MP3 for smaller file sizes. All processing in your browser.',
@@ -711,6 +736,31 @@ const translations = {
     imgconv_aboutJpg: '写真向けの汎用形式。多くの色を含む画像に最適。非可逆圧縮。',
     imgconv_aboutPng: '透過対応の可逆圧縮形式。ロゴやスクリーンショットに最適。',
 
+    // Background Remover
+    bgrem_title: '背景透過（背景除去）',
+    bgrem_desc: 'AIが画像の背景を瞬時に除去。完全無料、ブラウザ内で処理。',
+    bgrem_privacy: '画像はサーバーに送信されません。すべてお使いのデバイス上で処理されます。',
+    bgrem_dropText: 'ここに画像をドラッグ＆ドロップ',
+    bgrem_selectFile: '画像を選択',
+    bgrem_maxSize: '最大20MB',
+    bgrem_fileTooLarge: 'ファイルサイズは20MB以下にしてください。',
+    bgrem_removeBtn: '背景を除去',
+    bgrem_processing: '背景を除去中...',
+    bgrem_loadingModel: 'AIモデルを読み込み中（初回は少し時間がかかります）...',
+    bgrem_error: '背景除去に失敗しました。別の画像をお試しください。',
+    bgrem_original: 'オリジナル',
+    bgrem_result: '背景除去後',
+    bgrem_downloadPng: 'PNG（透過）をダウンロード',
+    bgrem_tryAnother: '別の画像を試す',
+    bgrem_aboutTitle: 'このツールについて',
+    bgrem_about1Title: '完全無料＆プライベート',
+    bgrem_about1Desc: 'アップロード不要。AIがブラウザ内で動作。画像はデバイスから外に出ません。',
+    bgrem_about2Title: 'AI搭載',
+    bgrem_about2Desc: '高精度な機械学習モデルで背景を正確に検出・除去します。',
+    bgrem_about3Title: '透過PNG出力',
+    bgrem_about3Desc: '透明背景のPNGでダウンロード。デザインツールやプレゼンですぐに使えます。',
+    footerBgRemover: '背景透過',
+
     // Audio Converter
     audioconv_wavToMp3Title: 'WAV → MP3 変換ツール',
     audioconv_wavToMp3Desc: 'WAVファイルをMP3に変換してファイルサイズを縮小。ブラウザ内で完結。',
@@ -1002,6 +1052,7 @@ const translations = {
     footerMp3ToWav: 'MP3 a WAV',
     footerImageTools: 'Herramientas de Imagen',
     footerImageToWebp: 'JPG/PNG a WebP',
+    footerBgRemover: 'Eliminador de Fondo',
     footerPdfConverter: 'Convertidor PDF',
 
     // PDF Converter
@@ -1290,6 +1341,7 @@ const translations = {
     footerMp3ToWav: 'MP3 vers WAV',
     footerImageTools: 'Outils d\'Image',
     footerImageToWebp: 'JPG/PNG vers WebP',
+    footerBgRemover: 'Suppression de Fond',
     footerPdfConverter: 'Convertisseur PDF',
 
     // PDF Converter
@@ -1578,6 +1630,7 @@ const translations = {
     footerMp3ToWav: 'MP3 zu WAV',
     footerImageTools: 'Bild-Tools',
     footerImageToWebp: 'JPG/PNG zu WebP',
+    footerBgRemover: 'Hintergrund Entfernen',
     footerPdfConverter: 'PDF-Konverter',
 
     // PDF Converter
@@ -1866,6 +1919,7 @@ const translations = {
     footerMp3ToWav: 'MP3 → WAV 변환',
     footerImageTools: '이미지 도구',
     footerImageToWebp: 'JPG/PNG를 WebP로',
+    footerBgRemover: '배경 제거',
     footerPdfConverter: 'PDF 변환기',
 
     // PDF Converter
@@ -2154,6 +2208,7 @@ const translations = {
     footerMp3ToWav: 'MP3 para WAV',
     footerImageTools: 'Ferramentas de Imagem',
     footerImageToWebp: 'JPG/PNG para WebP',
+    footerBgRemover: 'Remover Fundo',
     footerPdfConverter: 'Conversor PDF',
 
     // PDF Converter

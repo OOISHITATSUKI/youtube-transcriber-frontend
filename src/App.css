@@ -3911,3 +3911,131 @@ body.logged-in [id^="g_id_"] {
     border-bottom: 1px solid var(--border);
   }
 }
+
+/* === Background Remover === */
+.bgrem-preview {
+  position: relative;
+  background: var(--bg-card);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+
+.bgrem-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+}
+
+.bgrem-preview-info {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.bgrem-preview .file-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.bgrem-processing {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.bgrem-processing p {
+  margin-top: 12px;
+  color: var(--text-secondary);
+}
+
+.bgrem-progress-bar {
+  width: 100%;
+  max-width: 300px;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  margin: 16px auto 0;
+  overflow: hidden;
+}
+
+.bgrem-progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.bgrem-progress-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 6px;
+}
+
+.bgrem-progress-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.bgrem-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.bgrem-compare-item h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.bgrem-image-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+}
+
+.bgrem-image-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.bgrem-checkerboard {
+  background-image:
+    linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
+    linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e0e0e0 75%),
+    linear-gradient(-45deg, transparent 75%, #e0e0e0 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+@media (max-width: 640px) {
+  .bgrem-compare {
+    grid-template-columns: 1fr;
+  }
+}

@@ -30,6 +30,7 @@ export default function Footer() {
           <h4>{t('footerImageTools')}</h4>
           <ul>
             <li><Link to="/image-to-webp">{t('footerImageToWebp')}</Link></li>
+            <li><Link to="/bg-remover">{t('footerBgRemover')}</Link></li>
             <li><Link to="/pdf-converter">{t('footerPdfConverter')}</Link></li>
           </ul>
         </div>
