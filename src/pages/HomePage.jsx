@@ -56,6 +56,7 @@ export default function HomePage() {
   const [showTextInput, setShowTextInput] = useState(false);
   const [textInput, setTextInput] = useState('');
   const [inputMode, setInputMode] = useState('url'); // 'url' | 'upload'
+  const [submittedUrl, setSubmittedUrl] = useState('');
   const [uploadFile, setUploadFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
 
@@ -122,6 +123,7 @@ export default function HomePage() {
     setSrtData(null);
     setIsDemo(false);
     setShowExtensionBanner(false);
+    setSubmittedUrl(url);
 
     if (IS_DEMO) {
       setTimeout(() => {
@@ -459,6 +461,7 @@ export default function HomePage() {
             videoDuration={videoDuration}
             videoTitle={videoTitle}
             srt={srtData}
+            sourceUrl={submittedUrl}
             onUpgrade={() => setShowPricing(true)}
           />
 

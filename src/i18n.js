@@ -122,6 +122,8 @@ const translations = {
     ext_text_title: 'Paste your transcript',
     ext_text_placeholder: 'Paste transcript text or subtitles here...',
     ext_text_submit: 'Format & Analyze',
+    shorts_notice_text: 'This is a Shorts video. The Chrome extension requires a normal video page.',
+    shorts_notice_link: 'Open as regular video',
     demoPaymentAlert: 'Payment is not available in demo mode',
 
     // Thumbnail Page
@@ -351,7 +353,7 @@ const translations = {
     seo_copyAllTags: 'Copy all tags',
 
     // VSEO Page
-    vseo_title: 'YouTube AI Title Checker',
+    vseo_title: 'AI-Diagnose YouTube Titles from Text Data',
     vseo_desc: 'Upload your transcript or paste text — AI analyzes your content and suggests optimized titles, tags, chapters & more.',
     vseo_uploadLabel: 'Drop or select a transcript file',
     vseo_fileFormats: 'TXT, SRT, VTT, ASS, LRC supported',
@@ -580,6 +582,8 @@ const translations = {
     ext_text_title: '文字起こしテキストを貼り付け',
     ext_text_placeholder: '文字起こしテキストや字幕テキストをここに貼り付け...',
     ext_text_submit: '整形・分析する',
+    shorts_notice_text: 'ショート動画のため、Chrome拡張機能が使えません。',
+    shorts_notice_link: '通常の動画ページで開く',
     demoPaymentAlert: 'デモモードでは決済機能は利用できません',
 
     // Thumbnail Page
@@ -666,7 +670,7 @@ const translations = {
     footerVideoSplitter: '動画分割',
     footerThumbnail: 'YouTubeサムネイルメーカー',
     footerAudioTranscriber: '音声文字起こし',
-    footerVseo: 'YouTubeAIタイトル診断',
+    footerVseo: 'YouTubeタイトルをAI診断',
     footerAudioTools: '音声ツール',
     footerWavToMp3: 'WAV → MP3変換',
     footerMp3ToWav: 'MP3 → WAV変換',
@@ -795,7 +799,7 @@ const translations = {
     seo_copyAllTags: 'タグを全てコピー',
 
     // VSEO Page
-    vseo_title: 'YouTubeAIタイトル診断',
+    vseo_title: 'テキストデータからYouTubeタイトルをAI診断',
     vseo_desc: '文字起こしテキストをアップロードまたは貼り付けるだけ。AIが動画内容を分析し、最適なタイトル・タグ・チャプターを提案します。',
     vseo_uploadLabel: 'テキストファイルをドロップまたは選択',
     vseo_fileFormats: 'TXT, SRT, VTT, ASS, LRC対応',

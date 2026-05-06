@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { t, useLang } from '../i18n';
 
-export default function TranscriptView({ transcript, isPaid, videoDuration, videoTitle, srt, onUpgrade }) {
+export default function TranscriptView({ transcript, isPaid, videoDuration, videoTitle, srt, sourceUrl, onUpgrade }) {
   useLang();
   const [copied, setCopied] = useState(false);
   const lines = transcript.split('\n').filter(l => l.trim());
   const isTruncated = videoDuration > 180 && !isPaid;
+
+  // Detect Shorts URL and build regular watch URL
+  const shortsMatch = sourceUrl && sourceUrl.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
+  const regularWatchUrl = shortsMatch ? `https://www.youtube.com/watch?v=${shortsMatch[1]}` : null;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(transcript);
@@ -40,6 +44,25 @@ export default function TranscriptView({ transcript, isPaid, videoDuration, vide
           {videoTitle && <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 10 }}>{videoTitle}</span>}
         </h2>
       </div>
+
+      {regularWatchUrl && (
+        <div className="shorts-notice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          <span>{t('shorts_notice_text')}</span>
+          <a href={regularWatchUrl} target="_blank" rel="noopener noreferrer" className="shorts-notice-link">
+            {t('shorts_notice_link')}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        </div>
+      )}
 
       <div className="transcript-content">
         {lines.map((line, i) => (
