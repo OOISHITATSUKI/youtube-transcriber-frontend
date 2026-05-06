@@ -123,7 +123,7 @@ const translations = {
     ext_text_placeholder: 'Paste transcript text or subtitles here...',
     ext_text_submit: 'Format & Analyze',
     shorts_notice_text: 'This is a Shorts video. The Chrome extension requires a normal video page.',
-    shorts_notice_link: 'Open as regular video',
+    shorts_notice_link: 'Please try again with the regular video page URL.',
     demoPaymentAlert: 'Payment is not available in demo mode',
 
     // Thumbnail Page
@@ -583,7 +583,7 @@ const translations = {
     ext_text_placeholder: '文字起こしテキストや字幕テキストをここに貼り付け...',
     ext_text_submit: '整形・分析する',
     shorts_notice_text: 'ショート動画のため、Chrome拡張機能が使えません。',
-    shorts_notice_link: '通常の動画ページで開く',
+    shorts_notice_link: '通常の動画ページのURLで再度お試しください。',
     demoPaymentAlert: 'デモモードでは決済機能は利用できません',
 
     // Thumbnail Page
