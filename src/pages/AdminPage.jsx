@@ -183,6 +183,10 @@ export default function AdminPage() {
             <span className="admin-stat-value">{stats.summary.totalCreditsUsed}</span>
             <span className="admin-stat-label">Credits Used</span>
           </div>
+          <div className="admin-stat-card">
+            <span className="admin-stat-value">{stats.summary.totalTranscriptions || 0}</span>
+            <span className="admin-stat-label">Total Transcriptions</span>
+          </div>
         </div>
       )}
 
@@ -352,6 +356,42 @@ export default function AdminPage() {
                     <td>{u.credits_used}</td>
                     <td className="admin-url">{renderUrlCell(u.video_url, u.file_name)}</td>
                     <td>{u.duration_seconds ? `${Math.ceil(u.duration_seconds / 60)}min` : '-'}</td>
+                    <td>{formatDate(u.created_at)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+      {/* All Usage (including anonymous) */}
+      {stats?.allUsage?.length > 0 && (
+        <div className="admin-section">
+          <h2>All Transcriptions ({stats.allUsage.length})</h2>
+          <div className="admin-table-wrap">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th>User</th>
+                  <th>Title / URL</th>
+                  <th>Duration</th>
+                  <th>Country</th>
+                  <th>Lang</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stats.allUsage.map((u, i) => (
+                  <tr key={i}>
+                    <td><span className={`usage-badge ${u.source || 'unknown'}`}>{u.source || '?'}</span></td>
+                    <td style={{ fontSize: '0.75rem', color: u.user_token ? '#4ade80' : '#888' }}>
+                      {u.user_token ? 'logged-in' : 'anonymous'}
+                    </td>
+                    <td className="admin-url">{renderUrlCell(u.video_url, u.video_title)}</td>
+                    <td>{u.duration_seconds ? `${Math.ceil(u.duration_seconds / 60)}min` : '-'}</td>
+                    <td>{u.country || '-'}</td>
+                    <td style={{ fontSize: '0.75rem' }}>{u.language || '-'}</td>
                     <td>{formatDate(u.created_at)}</td>
                   </tr>
                 ))}
